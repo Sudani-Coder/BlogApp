@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        {% if title %}
+        <title>Sudani Coder - {{ title }}</title>
+        {% else %}
+        <title>Sudani Coder</title>
+        {% endif %}
+        <link rel="stylesheet" href="{% static './css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static './css/style.css' %}">
+        <link rel="stylesheet" href="{% static './blog/main.css' %}">
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark text-light">
+                <div class="container">
+                    <a class="navbar-brand mr-4" href="{% url 'blog:home' %}">Sudani Coder</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'blog:home' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'blog:about' %}">About</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'blog:PostCreate' %}">New Post</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register'%}">Register</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div>
+            <main role="main" class="container">
+                <div class="row mt-4">
+                    <div class="col-md-8">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        {% block content %}
+                        {% endblock content %}
+                    </div>
+                    <div class="col-md-4">
+                        <aside class="content-section">
+                            <h3>Our Sidebar</h3>
+                            <p class='text-muted'>
+                                You can put any information here you'd like.
+                                <ul class="list-group">
+                                    <li class="list-group-item list-group-item-light">Latest Posts</li>
+                                    <li class="list-group-item list-group-item-light">Announcements</li>
+                                    <li class="list-group-item list-group-item-light">Calendars</li>
+                                    <li class="list-group-item list-group-item-light">etc</li>
+                                </ul>
+                            </p>
+                        </aside>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="{% static './js/jquery-3.4.1.slim.min.js' %}"></script>
+        <script src="{% static './js/popper.min.js' %}"></script>
+        <script src="{% static './js/bootstrap.min.js' %}"></script>
+        <script src="{% static './js/script.js' %}"></script>
+    </body>
+</html>

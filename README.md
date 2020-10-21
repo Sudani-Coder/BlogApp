@@ -1,4 +1,4 @@
-#**BlogApp**
+# Blog Web App
 
 **Blog web app built with django**
 
